@@ -2,11 +2,14 @@
 import VaporTesting
 import Testing
 import Fluent
+import FluentSQLiteDriver
 
 @Suite("App Tests with DB", .serialized)
 struct InnerFlowServerTests {
     private func withApp(_ test: (Application) async throws -> ()) async throws {
         let app = try await Application.make(.testing)
+        // Используем SQLite in-memory для тестов
+        app.databases.use(.sqlite(.memory), as: .sqlite)
         do {
             try await configure(app)
             try await app.autoMigrate()

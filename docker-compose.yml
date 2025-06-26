@@ -27,7 +27,7 @@ x-shared_environment: &shared_environment
   
 services:
   app:
-    image: innerflowserver:latest
+    image: inner-flow-server:latest
     build:
       context: .
     environment:
@@ -50,7 +50,7 @@ services:
     deploy:
       replicas: 0
   revert:
-    image: innerflowserver:latest
+    image: inner-flow-server:latest
     build:
       context: .
     environment:

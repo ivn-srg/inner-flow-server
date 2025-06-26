@@ -1,0 +1,202 @@
+{
+  "info": {
+    "_postman_id": "b1e7e1c2-1c2e-4e1e-9e1e-1e1e1e1e1e1e",
+    "name": "InnerFlowServer API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Auth - Register",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"email\": \"test@example.com\",\n  \"password\": \"yourpassword\",\n  \"anonymous\": false,\n  \"settings\": {\n    \"tone\": \"empathetic\",\n    \"language\": \"ru\"\n  }\n}"
+        },
+        "url": { "raw": "{{baseUrl}}/api/v1/auth/register", "host": ["{{baseUrl}}"], "path": ["api", "v1", "auth", "register"] }
+      }
+    },
+    {
+      "name": "Auth - Register Anonymous",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"anonymous\": true,\n  \"settings\": {\n    \"tone\": \"empathetic\",\n    \"language\": \"ru\"\n  }\n}"
+        },
+        "url": { "raw": "{{baseUrl}}/api/v1/auth/register", "host": ["{{baseUrl}}"], "path": ["api", "v1", "auth", "register"] }
+      }
+    },
+    {
+      "name": "Auth - Login",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"email\": \"test@example.com\",\n  \"password\": \"yourpassword\"\n}"
+        },
+        "url": { "raw": "{{baseUrl}}/api/v1/auth/login", "host": ["{{baseUrl}}"], "path": ["api", "v1", "auth", "login"] }
+      }
+    },
+    {
+      "name": "Auth - Me",
+      "request": {
+        "method": "GET",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{token}}" }
+        ],
+        "url": { "raw": "{{baseUrl}}/api/v1/auth/me", "host": ["{{baseUrl}}"], "path": ["api", "v1", "auth", "me"] }
+      }
+    },
+    {
+      "name": "Todo - Create",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": \"Купить молоко\"\n}"
+        },
+        "url": { "raw": "{{baseUrl}}/todos", "host": ["{{baseUrl}}"], "path": ["todos"] }
+      }
+    },
+    {
+      "name": "Todo - List",
+      "request": {
+        "method": "GET",
+        "url": { "raw": "{{baseUrl}}/todos", "host": ["{{baseUrl}}"], "path": ["todos"] }
+      }
+    },
+    {
+      "name": "Todo - Delete",
+      "request": {
+        "method": "DELETE",
+        "url": { "raw": "{{baseUrl}}/todos/:todoID", "host": ["{{baseUrl}}"], "path": ["todos", ":todoID"] }
+      }
+    },
+    {
+      "name": "Diary - Create",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{token}}" },
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"text\": \"Сегодня был хороший день\",\n  \"mode\": \"plain\"\n}"
+        },
+        "url": { "raw": "{{baseUrl}}/api/v1/diary/create", "host": ["{{baseUrl}}"], "path": ["api", "v1", "diary", "create"] }
+      }
+    },
+    {
+      "name": "Diary - List Entries",
+      "request": {
+        "method": "GET",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{token}}" }
+        ],
+        "url": { "raw": "{{baseUrl}}/api/v1/diary/entries", "host": ["{{baseUrl}}"], "path": ["api", "v1", "diary", "entries"] }
+      }
+    },
+    {
+      "name": "Diary - Get Entry",
+      "request": {
+        "method": "GET",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{token}}" }
+        ],
+        "url": { "raw": "{{baseUrl}}/api/v1/diary/entry/:id", "host": ["{{baseUrl}}"], "path": ["api", "v1", "diary", "entry", ":id"] }
+      }
+    },
+    {
+      "name": "Diary - Delete Entry",
+      "request": {
+        "method": "DELETE",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{token}}" }
+        ],
+        "url": { "raw": "{{baseUrl}}/api/v1/diary/entry/:id", "host": ["{{baseUrl}}"], "path": ["api", "v1", "diary", "entry", ":id"] }
+      }
+    },
+    {
+      "name": "Chat - Send Message",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{token}}" },
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"message\": \"Привет, как дела?\"\n}"
+        },
+        "url": { "raw": "{{baseUrl}}/api/v1/chat/send", "host": ["{{baseUrl}}"], "path": ["api", "v1", "chat", "send"] }
+      }
+    },
+    {
+      "name": "Chat - History",
+      "request": {
+        "method": "GET",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{token}}" }
+        ],
+        "url": { "raw": "{{baseUrl}}/api/v1/chat/history", "host": ["{{baseUrl}}"], "path": ["api", "v1", "chat", "history"] }
+      }
+    },
+    {
+      "name": "Voice - Transcribe",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{token}}" },
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"fileUrl\": \"https://example.com/audio.m4a\"\n}"
+        },
+        "url": { "raw": "{{baseUrl}}/api/v1/voice/transcribe", "host": ["{{baseUrl}}"], "path": ["api", "v1", "voice", "transcribe"] }
+      }
+    },
+    {
+      "name": "Voice - Check Status",
+      "request": {
+        "method": "GET",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{token}}" }
+        ],
+        "url": { "raw": "{{baseUrl}}/api/v1/voice/check/:id", "host": ["{{baseUrl}}"], "path": ["api", "v1", "voice", "check", ":id"] }
+      }
+    },
+    {
+      "name": "Utils - Emotions Sample",
+      "request": {
+        "method": "GET",
+        "url": { "raw": "{{baseUrl}}/api/v1/utils/emotions/sample", "host": ["{{baseUrl}}"], "path": ["api", "v1", "utils", "emotions", "sample"] }
+      }
+    },
+    {
+      "name": "Utils - Modes",
+      "request": {
+        "method": "GET",
+        "url": { "raw": "{{baseUrl}}/api/v1/utils/modes", "host": ["{{baseUrl}}"], "path": ["api", "v1", "utils", "modes"] }
+      }
+    }
+  ],
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:8080" },
+    { "key": "token", "value": "" }
+  ]
+} 
