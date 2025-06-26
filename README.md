@@ -1,6 +1,6 @@
 # InnerFlowServer
 
-💧 A project built with the Vapor web framework.
+This is my API server project on swift built with the Vapor web framework by vibe coding.
 
 ## Getting Started
 
