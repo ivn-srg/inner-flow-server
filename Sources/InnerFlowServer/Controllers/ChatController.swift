@@ -11,8 +11,9 @@ struct ChatController: RouteCollection {
     func send(req: Request) async throws -> ChatSendResponse {
         let user = try req.auth.require(User.self)
         let data = try req.content.decode(ChatSendRequest.self)
-        let emotion = EmotionAnalyzerMock().analyze(text: data.message)
-        let reply = LLMChatMock().generateReply(userMessage: data.message, emotion: emotion)
+        let emotionStr = EmotionAnalyzerMock().analyze(text: data.message)
+        let emotion = ChatEmotion(rawValue: emotionStr) ?? .calm
+        let reply = try await LLMChatMock().generateReply(userMessage: data.message, emotion: emotion.rawValue)
         let message = ChatMessage(
             userID: try user.requireID(),
             message: data.message,

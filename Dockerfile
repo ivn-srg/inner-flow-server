@@ -7,7 +7,12 @@ FROM swift:6.0-noble AS build
 RUN export DEBIAN_FRONTEND=noninteractive DEBCONF_NONINTERACTIVE_SEEN=true \
     && apt-get -q update \
     && apt-get -q dist-upgrade -y \
-    && apt-get install -y libjemalloc-dev
+    && apt-get -q install -y \
+      libjemalloc2 \
+      ca-certificates \
+      tzdata \
+      libcurl4 \
+    && rm -r /var/lib/apt/lists/*
 
 # Каталог сборки
 WORKDIR /build
@@ -36,6 +41,7 @@ RUN export DEBIAN_FRONTEND=noninteractive DEBCONF_NONINTERACTIVE_SEEN=true \
       libjemalloc2 \
       ca-certificates \
       tzdata \
+      libcurl4 \
     && rm -r /var/lib/apt/lists/*
 
 # Создание пользователя vapor

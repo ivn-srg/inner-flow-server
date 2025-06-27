@@ -5,6 +5,9 @@ struct RegisterRequest: Content {
     var password: String?
     var anonymous: Bool?
     var settings: UserSettingsDTO?
+    var name: String?
+    var gender: String?
+    var age: Int?
 }
 
 struct LoginRequest: Content {

@@ -14,20 +14,20 @@ final class DiaryEntry: Model, Content, @unchecked Sendable {
     var originalText: String
 
     @Field(key: "mode")
-    var mode: String // poem | dream | story | analysis
+    var mode: DiaryMode
 
     @Field(key: "interpreted_text")
     var interpretedText: String
 
     @Field(key: "emotions")
-    var emotions: [String]
+    var emotions: [DiaryEmotion]
 
     @Field(key: "created_at")
     var createdAt: Date
 
     init() { }
 
-    init(id: UUID? = nil, userID: UUID, originalText: String, mode: String, interpretedText: String, emotions: [String], createdAt: Date = Date()) {
+    init(id: UUID? = nil, userID: UUID, originalText: String, mode: DiaryMode, interpretedText: String, emotions: [DiaryEmotion], createdAt: Date = Date()) {
         self.id = id
         self.$user.id = userID
         self.originalText = originalText

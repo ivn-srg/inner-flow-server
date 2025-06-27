@@ -14,7 +14,7 @@
         ],
         "body": {
           "mode": "raw",
-          "raw": "{\n  \"email\": \"test@example.com\",\n  \"password\": \"yourpassword\",\n  \"anonymous\": false,\n  \"settings\": {\n    \"tone\": \"empathetic\",\n    \"language\": \"ru\"\n  }\n}"
+          "raw": "{\n  \"email\": \"test@example.com\",\n  \"password\": \"yourpassword\",\n  \"anonymous\": false,\n  \"name\": \"Иван\",\n  \"gender\": \"male\",\n  \"age\": 25,\n  \"settings\": {\n    \"tone\": \"empathetic\",\n    \"language\": \"ru\"\n  }\n}"
         },
         "url": { "raw": "{{baseUrl}}/api/v1/auth/register", "host": ["{{baseUrl}}"], "path": ["api", "v1", "auth", "register"] }
       }
@@ -28,7 +28,7 @@
         ],
         "body": {
           "mode": "raw",
-          "raw": "{\n  \"anonymous\": true,\n  \"settings\": {\n    \"tone\": \"empathetic\",\n    \"language\": \"ru\"\n  }\n}"
+          "raw": "{\n  \"anonymous\": true,\n  \"name\": \"Гость\",\n  \"gender\": \"unspecified\",\n  \"age\": 0,\n  \"settings\": {\n    \"tone\": \"empathetic\",\n    \"language\": \"ru\"\n  }\n}"
         },
         "url": { "raw": "{{baseUrl}}/api/v1/auth/register", "host": ["{{baseUrl}}"], "path": ["api", "v1", "auth", "register"] }
       }

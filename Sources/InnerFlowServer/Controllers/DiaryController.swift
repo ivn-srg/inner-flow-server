@@ -14,16 +14,14 @@ struct DiaryController: RouteCollection {
         let user = try req.auth.require(User.self)
         let data = try req.content.decode(DiaryCreateRequest.self)
         var text = data.text ?? ""
-//        var confidence: Double? = nil
-//        var duration: Double? = nil
         if let voiceUrl = data.voiceUrl {
             let result = WhisperTranscriberMock().transcribe(url: voiceUrl)
             text = result.text
-//            confidence = result.confidence
-//            duration = result.duration
         }
-        let emotions = [EmotionAnalyzerMock().analyze(text: text)]
-        let (interpreted, summary) = LLMDiaryMock().interpret(text: text, mode: data.mode)
+        let emotionStr = EmotionAnalyzerMock().analyze(text: text)
+        let emotion = DiaryEmotion(rawValue: emotionStr) ?? .neutral
+        let emotions = [emotion]
+        let (interpreted, summary) = LLMDiaryMock().interpret(text: text, mode: data.mode.rawValue)
         let entry = DiaryEntry(
             userID: try user.requireID(),
             originalText: text,

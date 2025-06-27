@@ -11,7 +11,7 @@ final class VoiceTranscription: Model, Content, @unchecked Sendable {
     var user: User
 
     @Field(key: "status")
-    var status: String // pending | processing | done | error
+    var status: VoiceTranscriptionStatus
 
     @Field(key: "text")
     var text: String?
@@ -30,7 +30,7 @@ final class VoiceTranscription: Model, Content, @unchecked Sendable {
 
     init() { }
 
-    init(id: UUID? = nil, userID: UUID, status: String = "pending", text: String? = nil, confidence: Double? = nil, duration: Double? = nil, fileURL: String, createdAt: Date = Date()) {
+    init(id: UUID? = nil, userID: UUID, status: VoiceTranscriptionStatus = .pending, text: String? = nil, confidence: Double? = nil, duration: Double? = nil, fileURL: String, createdAt: Date = Date()) {
         self.id = id
         self.$user.id = userID
         self.status = status

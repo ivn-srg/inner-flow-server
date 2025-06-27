@@ -17,14 +17,14 @@ final class ChatMessage: Model, Content, @unchecked Sendable {
     var reply: String
 
     @Field(key: "emotion")
-    var emotion: String // anxiety | calm | anger
+    var emotion: ChatEmotion
 
     @Field(key: "timestamp")
     var timestamp: Date
 
     init() { }
 
-    init(id: UUID? = nil, userID: UUID, message: String, reply: String, emotion: String, timestamp: Date = Date()) {
+    init(id: UUID? = nil, userID: UUID, message: String, reply: String, emotion: ChatEmotion, timestamp: Date = Date()) {
         self.id = id
         self.$user.id = userID
         self.message = message

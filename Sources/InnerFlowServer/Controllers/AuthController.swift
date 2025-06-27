@@ -15,7 +15,10 @@ struct AuthController: RouteCollection {
         let email = data.email?.lowercased()
         let password = data.password
         let anonymous = data.anonymous ?? false
-        let settings = data.settings ?? UserSettingsDTO(tone: "empathetic", language: "ru")
+        let settings = data.settings ?? UserSettingsDTO(tone: .empathetic, language: .ru)
+        let name = data.name ?? ""
+        let gender = Gender(rawValue: data.gender ?? "unspecified") ?? .unspecified
+        let age = data.age ?? 0
 
         if !anonymous {
             guard let email = email, let password = password, !email.isEmpty, !password.isEmpty else {
@@ -24,7 +27,7 @@ struct AuthController: RouteCollection {
             guard try await User.query(on: req.db).filter(\.$email == email).first() == nil else {
                 throw Abort(.conflict, reason: "User already exists")
             }
-            let user = User(email: email, createdAt: Date(), settings: UserSettings(tone: settings.tone, language: settings.language))
+            let user = User(email: email, name: name, gender: gender, age: age, createdAt: Date(), settings: UserSettings(tone: settings.tone, language: settings.language))
             try await user.save(on: req.db)
             let hash = try Bcrypt.hash(password)
             let userPassword = UserPassword(userID: try user.requireID(), passwordHash: hash)
@@ -33,7 +36,7 @@ struct AuthController: RouteCollection {
             return AuthTokenResponse(token: token)
         } else {
             // Анонимная регистрация
-            let user = User(email: "anonymous_\(UUID().uuidString)", createdAt: Date(), settings: UserSettings(tone: settings.tone, language: settings.language))
+            let user = User(email: "anonymous_\(UUID().uuidString)", name: name, gender: gender, age: age, createdAt: Date(), settings: UserSettings(tone: settings.tone, language: settings.language))
             try await user.save(on: req.db)
             let token = try JWTService().generateToken(user: user)
             return AuthTokenResponse(token: token)
@@ -61,6 +64,9 @@ struct AuthController: RouteCollection {
         return UserDTO(
             id: try user.requireID(),
             email: user.email,
+            name: user.name,
+            gender: user.gender,
+            age: user.age,
             createdAt: user.createdAt,
             settings: UserSettingsDTO(tone: user.settings.tone, language: user.settings.language)
         )

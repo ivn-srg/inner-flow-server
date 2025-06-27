@@ -17,13 +17,15 @@ public func configure(_ app: Application) async throws {
         tls: .prefer(try .init(configuration: .clientDefault)))
     ), as: .psql)
 
-    app.migrations.add(CreateTodo())
+    // app.migrations.add(CreateTodo())
     app.migrations.add(CreateUser())
     app.migrations.add(CreateChatMessage())
     app.migrations.add(CreateDiaryEntry())
     app.migrations.add(CreateVoiceTranscription())
     app.migrations.add(CreateUserPassword())
+    app.migrations.add(AddEnumsSupport())
 
     // register routes
+    // try app.register(collection: TodoController())
     try routes(app)
 }

@@ -15,7 +15,7 @@ struct VoiceController: RouteCollection {
         let fileURL = "mock_url.m4a" // TODO: получить реальный url файла
         let transcription = VoiceTranscription(
             userID: try user.requireID(),
-            status: "processing",
+            status: .processing,
             text: nil,
             confidence: nil,
             duration: nil,
@@ -25,7 +25,7 @@ struct VoiceController: RouteCollection {
         try await transcription.save(on: req.db)
         // MOCK: сразу "обрабатываем" задачу
         let result = WhisperTranscriberMock().transcribe(url: fileURL)
-        transcription.status = "done"
+        transcription.status = .done
         transcription.text = result.text
         transcription.confidence = result.confidence
         transcription.duration = result.duration
@@ -46,7 +46,7 @@ struct VoiceController: RouteCollection {
         }
         return VoiceCheckResponse(
             id: try transcription.requireID(),
-            status: transcription.status,
+            status: transcription.status.rawValue,
             text: transcription.text,
             confidence: transcription.confidence,
             duration: transcription.duration
